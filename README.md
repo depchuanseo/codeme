@@ -1,3 +1,4 @@
+Facebook Page: https://www.facebook.com/pages/Codeme-Fastest-Php-Framework/849950458357382
 Codeme Support Class:
 
 Route::get();
@@ -9,19 +10,33 @@ Controller::load();
 Model::load();
 
 Validator::make();
+
 Request::get(). Request::has(). Request::only(). Request::except(). Request::all();
+
 Input (same as Request)
+
 Database::connect(). Database::query(). Database::fetch_assoc(). Database::insert_id(). Database::hasError(). Database::num_rows();
+
 Cookie::get(). Cookie::make();
+
 Session::get(). Session::make();
+
 Response::json(). Response::download();
+
 Cache::enable();
+
 Redirect::to();
+
 Http::sendPostTo(). Http::sendGetTo(). Http::getDataUrl(). Http::copyDataUrl();
+
 Dir::create(). Dir::listFiles();
+
 File::exists(). File::create(). File::write(). File::writeoverride(). File::remove(). File::read(). File::readallline(). File::getcontenttype(). File::getmodifytime(). File::getcreatetime(). File::getextension(). File::getsize(). File::move(). File::copy(). File::rename(). File::name();
+
 Uri::getNext();
+
 Fileupload::isValid(). Fileupload::move(); Fileupload::getRealPath(). Fileupload::getClientOriginalName(). Fileupload:getSize(). Fileupload::getMimeType();
+
 Alert::make();
 
 
