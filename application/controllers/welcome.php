@@ -4,13 +4,9 @@ class welcome
 {
     public function index()
     {
-        echo 'Welcome';
+        View::make('welcome');
     }
 
-    public function number()
-    {
-        echo 'Number';
-    }
 
 }
 

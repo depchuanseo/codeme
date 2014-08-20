@@ -27,9 +27,7 @@ define("VIEWS_URL", APP_URL . 'views/');
 
 define("INCLUDES_PATH", ROOT_PATH . 'includes/');
 
-//Connect to database
-
-
+//Setting database
 static $db = array(
 
     "dbtype" => "mysqli",
@@ -46,8 +44,6 @@ static $db = array(
 
 );
 
-//$db = new mysqli($dbhost, $dbuser, $dbpass,$dbname);
-//$db->query("SET NAMES 'utf8';");
 
 
 ?>
