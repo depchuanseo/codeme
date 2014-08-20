@@ -1,71 +1,77 @@
 <?php
 
-
-function split_content($str = '', $len = 500)
-{
-    if (isset($str[500])) {
-
-//        $bbtags=array(
-//          '<code>'=>'','</code>'=>''
-//        );
-//
-//        $str = str_ireplace(array_keys($bbtags), array_values($bbtags), $str);
-
-        $str = substr($str, 0, $len);
-    }
-
-    return $str;
-}
-
-
-function strtofriendly($str='')
-{
-    preg_match_all('/(\w+)/i',$str,$matches);
-
-    $total=count($matches[1]);
-
-    $friendly=implode('_',$matches[1]);
-
-    return $friendly;
-
-}
-
-function Xoadaucach($str)
+class String
 {
 
-    if (stristr($str, "  ")) {
-        while (stristr($str, "  ")) {
-            $str = str_replace("  ", " ", $str);
+    public function trimLines($Str = '')
+    {
+        $parseStr = explode("\r\n", $Str);
+
+        $totalLines = count($parseStr);
+
+        $strResult = '';
+
+        for ($i = 0; $i < $totalLines; $i++) {
+            if ($parseStr[$i] != '')
+                $strResult .= $parseStr[$i] . "\r\n";
         }
 
+        return $strResult;
+
     }
 
-    return $str;
-
-
-}
-
-function strtorand($method='number',$len = 10)
-{
-    $str='01201012345678923456012345678978934501234567896789';
-
-    switch($method)
+    public function clearSpace($Str = '')
     {
-        case 'number':
-            $str='012010123456789234560123450123456789234560123456789789345012345601234567892345601234567897893450123456678978934501234567896789';
-            break;
+        if (isset($Str[1])) {
+            preg_match_all('/([\w\S]+)/i', $Str, $matches);
 
-        case 'string':
-            $str='abcdefghijklmnopfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUqrstufghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            break;
-        case 'text':
-            $str='abcdefghijklmnopqrstuvwxyzhijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            break;
+            $strResult = implode(' ', $matches[1]);
+
+            return $strResult;
+        }
+
+        return $Str;
 
     }
-    $str = substr( str_shuffle( $str ) , 0 , $len );
 
-    return $str;
+    public function Split($Char = '', $Str = '')
+    {
+        $strResult = explode($Char, $Str);
+
+        return $strResult;
+    }
+
+    public function randNumber($len = 10)
+    {
+        $str = '012010123456789234560123450123456789234560123456789789345012345601234567892345601234567897893450123456678978934501234567896789';
+
+        $str = substr(str_shuffle($str), 0, $len);
+
+        return $str;
+
+    }
+
+    public function randAlpha($len = 10)
+    {
+        $str = 'abcdefghijklmnopfghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUqrstufghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        $str = substr(str_shuffle($str), 0, $len);
+
+        return $str;
+
+    }
+
+    public function randText($len = 10)
+    {
+        $str = 'abcdefghijkl0123456789mnopqrstuvwxyzhijklmnopqrs0123456789tuvwxyzABCDEFGHIJKLM0123456789NOPQRSTUVWXYZ01234567ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+        $str = substr(str_shuffle($str), 0, $len);
+
+        return $str;
+
+    }
+
+
 }
 
 

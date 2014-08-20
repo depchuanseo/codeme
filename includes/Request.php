@@ -43,29 +43,38 @@ class Request
 
     public function all()
     {
+        if (isset($_REQUEST['load'])) unset($_REQUEST['load']);
         return $_REQUEST;
     }
 
-    public function only($reqName = array())
+    public function only($reqName = '')
     {
-        $totalName = count($reqName);
-        $totalReq = count($_REQUEST);
+        if (isset($_REQUEST['load'])) unset($_REQUEST['load']);
 
-        if ($totalName > 0 && $totalReq > 0) {
+        if (is_array($reqName)) {
+            $totalName = count($reqName);
+            $totalReq = count($_REQUEST);
 
-            $data = array();
+            if ($totalName > 0 && $totalReq > 0) {
 
-            foreach ($reqName as $value) {
+                $data = array();
 
-                if (isset($_REQUEST[$value])) {
-                    $data[$value] = $_REQUEST[$value];
+                foreach ($reqName as $value) {
+
+                    if (isset($_REQUEST[$value])) {
+                        $data[$value] = $_REQUEST[$value];
+                    }
+
                 }
+
+                return $data;
 
             }
 
-            return $data;
-
         }
+
+        if (isset($_REQUEST[$reqName])) return $_REQUEST[$reqName];
+
 
     }
 
@@ -90,7 +99,6 @@ class Request
 
     }
 }
-
 
 
 ?>

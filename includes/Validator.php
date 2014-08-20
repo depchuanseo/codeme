@@ -3,7 +3,7 @@
 class Validator
 {
 
-    private static $errorMessage='';
+    private static $errorMessage = '';
 
     public function make($varName = array())
     {
@@ -14,7 +14,7 @@ class Validator
         for ($i = 0; $i < $totalVarName; $i++) {
             $keyName = $listKeys[$i];
 
-            if (preg_match_all('/required|min|max|email/i', $varName[$keyName])) {
+            if (preg_match_all('/required|min|max|email|number|alpha/i', $varName[$keyName])) {
 
                 $listRequire = explode('|', $varName[$keyName]);
 
@@ -41,7 +41,7 @@ class Validator
                             case 'max':
                                 $matchRight;
 
-                                if (!isset($keyValue[$matchRight])) return false;
+                                if (isset($keyValue[$matchRight])) return false;
 
                                 break;
 
@@ -49,13 +49,22 @@ class Validator
                         }
 
                     } else {
+
                         switch ($reqValue) {
                             case 'required':
                                 if (!isset($_REQUEST[$keyName])) return false;
                                 break;
                             case 'email':
-                                if (!preg_match('/.*?\@.*?\.\w+/i', $_REQUEST[$keyName])) return false;
+
+                                if (!preg_match('/^.*?\@.*?\.\w+$/i', $_REQUEST[$keyName])) return false;
                                 break;
+                            case 'number':
+                                if (!preg_match('/^\d+$/', $_REQUEST[$keyName])) return false;
+                                break;
+                            case 'alpha':
+                                if (!preg_match('/^[a-zA-Z]+$/i', $_REQUEST[$keyName])) return false;
+                                break;
+
 
                         }
                     }

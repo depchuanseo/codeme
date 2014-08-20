@@ -33,10 +33,6 @@ class Controller
 
     }
 
-    public function funcExist($controllerName='',$funcName='')
-    {
-
-    }
 
 
 }

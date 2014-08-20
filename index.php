@@ -10,35 +10,31 @@ require('codeme_start.php');
  *
  *
  */
+// Call to func view() of Controller Example
+Route::get('view-1','example@view');
 
-//Database::connect();
-//
-//$query = Database::query("select * from users limit 0,1");
+Route::get('view-2',function(){
 
-//$row=Database::fetch_assoc($query,function($result){
-//    print_r($result);
-//
-//});
+    $text="Anh nho ems nhieu lam\r\n\r\n\r\n\r\nTest line 2\r\n\r\n\r\n\r\n Test line 3\r\n\r\nTst line 4\r\nTst line 5";
 
-//print_r($row);
+//    preg_match_all('/([a-zA-Z0-9\-\_\.\'\"\{\}\[\]\:\;\,\<\>\?\/\!\@\#\$\%\^\&\*\(\)\+\=]+)[\s]/i',$text,$matches);
+   $parse=String::trimLines($text);
 
-//Route::get('', 'welcome');
+    print_r($parse);
 
-Route::get('thong-tin', function () {
-    echo 'fixed';
+
 });
 
-Route::pattern('id', '\d+');
-Route::get('ac/{id}/at', 'welcome@ab');
 
-Route::get('ac', 'welcome');
+//Call to func a() of controller example
+Route::get('exam-1','example@a');
+//Call to "example" controller, it will run function index() default.
+Route::get('exam','example');
 
-Route::pattern('all', '.*?');
-Route::get('{all}', 'welcome');
-
-
-
-
+Route::pattern('all','.*?');
+Route::get('{all}',function(){
+    echo 'Welcome!';
+});
 
 
 ?>
