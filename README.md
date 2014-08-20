@@ -1,9 +1,13 @@
 Codeme Support Class:
 
 Route::get();
+
 View::make();
+
 Controller::load();
+
 Model::load();
+
 Validator::make();
 Request::get(). Request::has(). Request::only(). Request::except(). Request::all();
 Input (same as Request)
