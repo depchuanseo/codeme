@@ -9,18 +9,20 @@ class Database
 
     private static $dbType = 'mysqli';
 
-    public function connect()
+    public function connect($dbsortName = 'default')
     {
         global $db;
 
         if (self::$hasConnected == 'no') {
 
-            self::$dbType = $db['dbtype'];
+            if (!is_array($db[$dbsortName])) return false;
+
+            self::$dbType = $db[$dbsortName]['dbtype'];
 
             switch ($db['dbtype']) {
                 case "mysqli":
 
-                    $conn = new mysqli($db['dbhost'], $db['dbuser'], $db['dbpassword'], $db['dbname'], $db['dbport']);
+                    $conn = new mysqli($db[$dbsortName]['dbhost'], $db[$dbsortName]['dbuser'], $db[$dbsortName]['dbpassword'], $db[$dbsortName]['dbname'], $db[$dbsortName]['dbport']);
 
 //                    if (!$conn) Alert::make('Cant connect to your database.');
 
@@ -152,11 +154,13 @@ class Database
         }
     }
 
+    public function selectDabatase($dbsortName = 'default')
+    {
+
+    }
+
 
 }
 
-class DB extends Database
-{
-}
 
 ?>

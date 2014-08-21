@@ -13,7 +13,6 @@ require('codeme_start.php');
 
 Route::get('','welcome');
 
-
 Route::pattern('all','.*?');
 Route::get('{all}',function(){
     View::make('page_not_found');

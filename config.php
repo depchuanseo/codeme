@@ -28,7 +28,9 @@ define("VIEWS_URL", APP_URL . 'views/');
 define("INCLUDES_PATH", ROOT_PATH . 'includes/');
 
 //Setting database
-static $db = array(
+
+
+$db['default'] = array(
 
     "dbtype" => "mysqli",
 
@@ -44,6 +46,46 @@ static $db = array(
 
 );
 
+
+/*
+//Add more database
+
+//$db['testdb']:  testdb is custom short name of database
+
+
+$db['testdb'] = array(
+
+    "dbtype" => "mysqli",
+
+    "dbhost" => "localhost",
+
+    "dbport" => "3306",
+
+    "dbuser" => "root",
+
+    "dbpassword" => "",
+
+    "dbname" => "2014_testdb"
+
+);
+
+$db['blog_api'] = array(
+
+    "dbtype" => "mysqli",
+
+    "dbhost" => "localhost",
+
+    "dbport" => "3306",
+
+    "dbuser" => "root",
+
+    "dbpassword" => "",
+
+    "dbname" => "2014_wordpress"
+
+);
+
+*/
 
 
 ?>
