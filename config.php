@@ -29,8 +29,8 @@ define("INCLUDES_PATH", ROOT_PATH . 'includes/');
 
 //Setting database
 
-
-$db['default'] = array(
+//Default or you can custom db short name
+$db['codeme'] = array(
 
     "dbtype" => "mysqli",
 
@@ -42,7 +42,7 @@ $db['default'] = array(
 
     "dbpassword" => "",
 
-    "dbname" => "2014_project_codeme"
+    "dbname" => "2014_codeme_test"
 
 );
 

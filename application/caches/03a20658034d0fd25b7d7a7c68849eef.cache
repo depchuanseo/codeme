@@ -11,11 +11,11 @@
     <title>Theme Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<?php echo ROOT_URL;?>bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="http://test.vn/project/2014/codeme/bootstrap/css/bootstrap.css" rel="stylesheet">
     <!-- Bootstrap theme -->
-    <link href="<?php echo ROOT_URL;?>bootstrap/css/flat-theme.css" rel="stylesheet">
+    <link href="http://test.vn/project/2014/codeme/bootstrap/css/flat-theme.css" rel="stylesheet">
 
-    <link href="<?php echo ROOT_URL;?>bootstrap/css/custom.css" rel="stylesheet">
+    <link href="http://test.vn/project/2014/codeme/bootstrap/css/custom.css" rel="stylesheet">
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -24,10 +24,10 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="<?php echo ROOT_URL;?>bootstrap/js/jquery-2.0.0.min.js"></script>
-    <script src="<?php echo ROOT_URL;?>bootstrap/js/jquery.min.map"></script>
+    <script src="http://test.vn/project/2014/codeme/bootstrap/js/jquery-2.0.0.min.js"></script>
+    <script src="http://test.vn/project/2014/codeme/bootstrap/js/jquery.min.map"></script>
 
-    <script src="<?php echo ROOT_URL;?>bootstrap/js/custom.js"></script>
+    <script src="http://test.vn/project/2014/codeme/bootstrap/js/custom.js"></script>
 
 </head>
 
@@ -44,7 +44,7 @@
                 Edit file <strong>config.php</strong> and setting your site information.
             </p>
             <p>
-                Root path is: <span class="label label-default"><?php echo dirname(dirname(dirname(__FILE__))).'/';?></span>
+                Root path is: <span class="label label-default">D:\wamp\htdocs\project\2014\codeme/</span>
             </p>
 
             <p>
@@ -63,7 +63,7 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-<script src="<?php echo ROOT_URL;?>boostrap/js/bootstrap.min.js"></script>
+<script src="http://test.vn/project/2014/codeme/boostrap/js/bootstrap.min.js"></script>
 
 </body>
 </html>

@@ -19,7 +19,7 @@ class Database
 
             self::$dbType = $db[$dbsortName]['dbtype'];
 
-            switch ($db['dbtype']) {
+            switch ($db[$dbsortName]['dbtype']) {
                 case "mysqli":
 
                     $conn = new mysqli($db[$dbsortName]['dbhost'], $db[$dbsortName]['dbuser'], $db[$dbsortName]['dbpassword'], $db[$dbsortName]['dbname'], $db[$dbsortName]['dbport']);

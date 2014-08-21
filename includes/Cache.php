@@ -18,16 +18,17 @@ class Cache
     public function loadCache()
     {
 
-        $url = trim($_GET['load']);
+        $load = isset($_GET['load']) ? $_GET['load'] : 'default_codeme';
+
+        $url = trim($load);
 
         $cachePath = CACHES_PATH . md5($url) . '.cache';
 
         if (file_exists($cachePath)) {
 
-            $cacheExpires=time() - filemtime($cachePath);
+            $cacheExpires = time() - filemtime($cachePath);
 
-            if($cacheExpires <= (int)self::$cacheLiveTime)
-            {
+            if ($cacheExpires <= (int)self::$cacheLiveTime) {
                 $cacheData = file_get_contents($cachePath);
 
                 echo $cacheData;
@@ -55,8 +56,12 @@ class Cache
 
     public function saveCache()
     {
+
         if (self::$cacheStatus == 'enable') {
-            $url = trim($_GET['load']);
+
+            $load = isset($_GET['load']) ? $_GET['load'] : 'default_codeme';
+
+            $url = trim($load);
 
             $savePath = CACHES_PATH . md5($url) . '.cache';
 

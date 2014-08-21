@@ -32,9 +32,7 @@ class Route
 
             if (is_object($varObject)) {
 
-                $varObject();
-
-                die();
+                self::loadObject($varObject);
             }
 
             self::loadController($controllerName);
@@ -75,9 +73,7 @@ class Route
 
             if (is_object($varObject)) {
 
-                $varObject();
-
-                die();
+                self::loadObject($varObject);
             }
 
             self::loadController($controllerName, $funcName);
@@ -125,9 +121,7 @@ class Route
 
             if (is_object($varObject)) {
 
-                $varObject();
-
-                die();
+                self::loadObject($varObject);
             }
 
             self::loadController($controllerName);
@@ -136,6 +130,16 @@ class Route
 
         }
 
+
+    }
+
+    public function loadObject($varObject)
+    {
+        $varObject();
+
+        Cache::saveCache();
+
+        die();
 
     }
 
