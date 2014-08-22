@@ -71,6 +71,22 @@ $db['testdb'] = array(
 
 );
 
+$db['blogmssql'] = array(
+
+    "dbtype" => "mssql",
+
+    "dbhost" => "localhost",
+
+    "dbport" => "1433",
+
+    "dbuser" => "root",
+
+    "dbpassword" => "",
+
+    "dbname" => "2014_wordpress"
+
+);
+
 $db['blog_api'] = array(
 
     "dbtype" => "pdo",

@@ -76,6 +76,18 @@ class Database
 
                     break;
 
+                case "mssql":
+
+                    $conn = DatabaseMSSQL::connect();
+
+//                    self::$error = DatabaseMSSQL::$error;
+
+                    return $conn;
+
+                    break;
+
+
+
                 case "pdo":
 
                     $conn = DatabasePDO::connect();
@@ -129,6 +141,17 @@ class Database
                 return $query;
 
                 break;
+
+            case "mssql":
+
+                $query = DatabaseMSSQL::query($queryStr, $objectStr = '');
+
+                self::$error = DatabaseMSSQL::$error;
+
+                return $query;
+
+                break;
+
             case "mysql":
 
 
@@ -160,6 +183,14 @@ class Database
 
                 break;
 
+            case "mssql":
+
+                $row = DatabaseMSSQL::fetch_array($queryDB, $objectStr, $fetchType);
+
+                return $row;
+
+                break;
+
         }
 
     }
@@ -186,7 +217,13 @@ class Database
                 return $row;
 
                 break;
+            case "mssql":
 
+                $row = DatabaseMSSQL::fetch_array($queryDB, $objectStr, $fetchType);
+
+                return $row;
+
+                break;
         }
 
     }
@@ -213,7 +250,13 @@ class Database
                 return $totalRows;
 
                 break;
+            case "mssql":
 
+                $totalRows = DatabaseMSSQL::num_rows($queryDB, $objectStr);
+
+                return $totalRows;
+
+                break;
         }
 
     }
@@ -240,7 +283,13 @@ class Database
                 return $id;
 
                 break;
+            case "mssql":
 
+                $id = DatabaseMSSQL::insert_id($objectStr);
+
+                return $id;
+
+                break;
         }
 
     }
