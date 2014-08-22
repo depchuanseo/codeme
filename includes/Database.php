@@ -89,7 +89,7 @@ class Database
 
         $tableName = $fieldList['tableName'];
 
-        $setWhere = $fieldList['whereName'] . "='" . $fieldList['whereValue'] . "'";
+        $setWhere = $this->genWhere();
 
         unset($fieldList['dbConnect'], $fieldList['hasConnected'], $fieldList['tableName'], $fieldList['dbType'], $fieldList['whereName'], $fieldList['whereValue'], $fieldList['error']);
 
@@ -132,8 +132,49 @@ class Database
 
     public function where($fieldName = '', $fieldValue = '')
     {
-        $this->whereName = $fieldName;
-        $this->whereValue = $fieldValue;
+        if (is_array($fieldName)) {
+            $totalField = count($fieldName);
+
+            $listKeyNames = array_keys($fieldName);
+
+            for ($i = 0; $i < $totalField; $i++) {
+
+                $fName = $listKeyNames[$i];
+
+                $this->where[$fName] = $fieldName[$fieldValue];
+
+            }
+
+
+        } else {
+            $this->where[$fieldName] = $fieldValue;
+        }
+
+
+//        $this->whereName = $fieldName;
+//        $this->whereValue = $fieldValue;
+
+        return $this;
+    }
+
+    private function genWhere()
+    {
+        $totalField = count($this->where);
+
+        $listKeyNames = array_keys($this->where);
+
+        $listKeyValues = array_values($this->where);
+
+        $strWhere = '';
+
+        for ($i = 0; $i < $totalField; $i++) {
+            $strWhere .= $listKeyNames[$i] . "='" . $listKeyValues[$i] . "' AND ";
+        }
+
+        $strWhere = substr($strWhere, 0, strlen($strWhere) - 4);
+
+        return $strWhere;
+
     }
 
     public function DeleteOnSubmit()
@@ -142,11 +183,16 @@ class Database
 
         $tableName = $fieldList['tableName'];
 
-        $setWhere = $fieldList['whereName'] . "='" . $fieldList['whereValue'] . "'";
+        $setWhere = $this->genWhere();
+
+
 
         unset($fieldList['dbConnect'], $fieldList['hasConnected'], $fieldList['tableName'], $fieldList['dbType'], $fieldList['whereName'], $fieldList['whereValue'], $fieldList['error']);
 
         $quertStr = "delete from $tableName where $setWhere";
+
+        echo $quertStr;
+        die();
 
         $this->ORMquery($quertStr);
 
