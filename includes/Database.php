@@ -72,6 +72,16 @@ class Database
 
                     self::$error = DatabaseSqlserver::$error;
 
+                    return $conn;
+
+                    break;
+
+                case "pdo":
+
+                    $conn = DatabasePDO::connect();
+
+                    return $conn;
+
                     break;
 
 //                case "mysql":

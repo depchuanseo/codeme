@@ -29,7 +29,7 @@ define("INCLUDES_PATH", ROOT_PATH . 'includes/');
 
 //Setting database
 
-// Support DbType: mysqli|sqlserver|pdomysql|mssql
+// Support DbType: mysqli|sqlserver|pdo|mssql
 
 //Default or you can custom db short name
 $db['codeme'] = array(
@@ -73,11 +73,11 @@ $db['testdb'] = array(
 
 $db['blog_api'] = array(
 
-    "dbtype" => "mysqli",
+    "dbtype" => "pdo",
+
+    "protocol" => "pgsql",
 
     "dbhost" => "localhost",
-
-    "dbport" => "3306",
 
     "dbuser" => "root",
 
