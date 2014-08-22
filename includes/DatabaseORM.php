@@ -5,7 +5,12 @@ class DatabaseORM
     public static $fieldList = array();
 
 
-//    private static $outConnect = '';
+    function __construct($tableName='')
+    {
+        $this->tableName = $tableName;
+
+        return $this;
+    }
 
 
     public function __set($varName = '', $varValue = '')
@@ -13,7 +18,14 @@ class DatabaseORM
         $this->fieldList[$varName] = $varValue;
     }
 
+    public function table($tableName = '')
+    {
 
+        $this->tableName = $tableName;
+
+        return $this;
+
+    }
     public function InsertOnSubmit($listFieldInsert = '')
     {
 //        $freshConnnect=$this->fieldList['dbConnect'];
@@ -39,10 +51,6 @@ class DatabaseORM
         $queryStr = "INSERT INTO $tableName($mergeField) VALUES($mergeValue)";
 
         Database::query($queryStr);
-
-//        $this->ORMquery($queryStr);
-
-//        $this->refreshORMConnect();
 
         $insert_id = Database::insert_id();
 
@@ -77,24 +85,10 @@ class DatabaseORM
 
         $quertStr = "UPDATE $tableName SET $setFields WHERE $setWhere";
 
-        $this->ORMquery($quertStr);
-
-        $this->refreshORMConnect();
+        Database::query($quertStr);
 
     }
 
-    public function refreshORMConnect()
-    {
-        $listTMP = array(
-
-            'dbConnect' => $this->fieldList['dbConnect'],
-            'hasConnected' => $this->fieldList['hasConnected'],
-            'dbType' => $this->fieldList['dbType']
-
-        );
-
-        $this->fieldList = $listTMP;
-    }
 
     public function where($fieldName = '', $fieldValue = '')
     {
@@ -155,9 +149,7 @@ class DatabaseORM
 
         $quertStr = "delete from $tableName where $setWhere";
 
-        $this->ORMquery($quertStr);
-
-        $this->refreshORMConnect();
+        Database::query($quertStr);
     }
 
     //  Object-Relational Mapping (ORM)
