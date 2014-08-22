@@ -80,7 +80,9 @@ class Database
 
         $this->refreshORMConnect();
 
-        return $this->ORMinsert_id();
+        $insert_id=$this->ORMinsert_id();
+
+        return $insert_id;
     }
 
     public function SubmitChanges()
