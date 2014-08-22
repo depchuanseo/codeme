@@ -29,6 +29,8 @@ define("INCLUDES_PATH", ROOT_PATH . 'includes/');
 
 //Setting database
 
+// Support DbType: mysqli|sqlserver|pdomysql|mssql
+
 //Default or you can custom db short name
 $db['codeme'] = array(
 
@@ -55,11 +57,11 @@ $db['codeme'] = array(
 
 $db['testdb'] = array(
 
-    "dbtype" => "mysqli",
+    "dbtype" => "sqlserver",
 
-    "dbhost" => "localhost",
+    "dbhost" => "serverName\sqlexpress",
 
-    "dbport" => "3306",
+    "dbport" => "1433",
 
     "dbuser" => "root",
 

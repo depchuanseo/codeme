@@ -35,6 +35,7 @@ class Database
         return $db;
 
     }
+
     //  Object-Relational Mapping (ORM)
 
 
@@ -55,11 +56,21 @@ class Database
 
 //                    if (!$conn) Alert::make('Cant connect to your database.');
 
+
                     self::$dbConnect = $conn;
 
                     self::$hasConnected = 'yes';
 
                     return $conn;
+
+                    break;
+
+
+                case "sqlserver":
+
+                    $conn = DatabaseSqlserver::connect();
+
+                    self::$error = DatabaseSqlserver::$error;
 
                     break;
 
@@ -82,7 +93,6 @@ class Database
     }
 
 
-
     public function query($queryStr = '', $objectStr = '')
     {
         switch (self::$dbType) {
@@ -100,6 +110,15 @@ class Database
 
                 break;
 
+            case "sqlserver":
+
+                $query = DatabaseSqlserver::query($queryStr, $objectStr = '');
+
+                self::$error = DatabaseSqlserver::$error;
+
+                return $query;
+
+                break;
             case "mysql":
 
 
@@ -108,7 +127,7 @@ class Database
 
     }
 
-    public function fetch_assoc($queryDB, $objectStr = '')
+    public function fetch_assoc($queryDB, $objectStr = '', $fetchType = 'SQLSRV_FETCH_ASSOC')
     {
         switch (self::$dbType) {
             case "mysqli":
@@ -123,6 +142,40 @@ class Database
 
                 break;
 
+            case "sqlserver":
+
+                $row = DatabaseSqlserver::fetch_array($queryDB, $objectStr, $fetchType);
+
+                return $row;
+
+                break;
+
+        }
+
+    }
+
+    public function fetch_array($queryDB, $objectStr = '', $fetchType = 'SQLSRV_FETCH_ASSOC')
+    {
+        switch (self::$dbType) {
+            case "mysqli":
+
+                $row = $queryDB->fetch_array();
+
+                if (is_object($objectStr)) {
+                    $objectStr($row);
+                }
+
+                return $row;
+
+                break;
+
+            case "sqlserver":
+
+                $row = DatabaseSqlserver::fetch_array($queryDB, $objectStr, $fetchType);
+
+                return $row;
+
+                break;
 
         }
 
@@ -143,6 +196,14 @@ class Database
 
                 break;
 
+            case "sqlserver":
+
+                $totalRows = DatabaseSqlserver::num_rows($queryDB, $objectStr);
+
+                return $totalRows;
+
+                break;
+
         }
 
     }
@@ -157,6 +218,14 @@ class Database
                 if (is_object($objectStr)) {
                     $objectStr($id);
                 }
+
+                return $id;
+
+                break;
+
+            case "sqlserver":
+
+                $id = DatabaseSqlserver::insert_id($objectStr);
 
                 return $id;
 
@@ -188,7 +257,6 @@ class Database
 
         }
     }
-
 
 
 }
