@@ -86,30 +86,6 @@ class Validator
 
     }
 
-    public function isNumber($varName = '')
-    {
-        if (!is_array($varName)) {
-            if (!is_numeric($_REQUEST[$varName])) {
-                return false;
-            }
-
-            return true;
-        }
-
-        $totalVar = count($varName);
-
-        for ($i = 0; $i < $totalVar; $i++) {
-            $vName = $varName[$i];
-
-            if (!is_numeric($_REQUEST[$vName])) {
-                return false;
-            }
-        }
-
-        return true;
-
-    }
-
 
 }
 

@@ -7,7 +7,154 @@ class Database
 
     private static $hasConnected = 'no';
 
-    private static $dbType = 'mysqli';
+    public static $dbType = 'mysqli';
+
+    public static $tableName = '';
+
+    public static $fieldList = array();
+
+//    private static $outConnect = '';
+
+
+    public function __set($varName = '', $varValue = '')
+    {
+        $this->fieldList[$varName] = $varValue;
+    }
+
+
+    //  Object-Relational Mapping (ORM)
+
+    public function connectORM($dbOject)
+    {
+        $this->dbConnect = $dbOject;
+        $this->hasConnected = 'yes';
+    }
+
+    private function setTableName($tableName = '')
+    {
+        $this->tableName = $tableName;
+    }
+
+    public function Table($tableName = '')
+    {
+
+        $db = new Database();
+
+        $db->connectORM(self::$dbConnect);
+
+//        self::$dbConnect = '';
+//        self::$hasConnected = 'no';
+
+//        $db->setTableName($tableName);
+
+        $db->tableName = $tableName;
+
+        $db->dbType = self::$dbType;
+
+
+        return $db;
+
+    }
+
+    public function InsertOnSubmit()
+    {
+
+        $fieldList = $this->fieldList;
+
+        $tableName = $fieldList['tableName'];
+
+        unset($fieldList['dbConnect'], $fieldList['hasConnected'], $fieldList['tableName'], $fieldList['dbType'], $fieldList['error']);
+
+
+        $listFieldNames = array_keys($fieldList);
+
+        $listFieldValues = array_values($fieldList);
+
+        $mergeField = implode(',', $listFieldNames);
+
+        $mergeValue = "'" . implode("','", $listFieldValues) . "'";
+
+        $quertStr = "insert into $tableName($mergeField) values($mergeValue)";
+
+        $this->ORMquery($quertStr);
+
+        $this->refreshORMConnect();
+
+        return $this->ORMinsert_id();
+    }
+
+    public function SubmitChanges()
+    {
+        $fieldList = $this->fieldList;
+
+        $tableName = $fieldList['tableName'];
+
+        $setWhere = $fieldList['whereName'] . "='" . $fieldList['whereValue'] . "'";
+
+        unset($fieldList['dbConnect'], $fieldList['hasConnected'], $fieldList['tableName'], $fieldList['dbType'], $fieldList['whereName'], $fieldList['whereValue'], $fieldList['error']);
+
+
+        $listFieldNames = array_keys($fieldList);
+
+        $listFieldValues = array_values($fieldList);
+
+        $totalField = count($listFieldNames);
+
+        $setFields = '';
+
+        for ($i = 0; $i < $totalField; $i++) {
+            $setFields = $setFields . $listFieldNames[$i] . "='" . $listFieldValues[$i] . "', ";
+
+        }
+
+        $setFields = substr($setFields, 0, strlen($setFields) - 2);
+
+        $quertStr = "update $tableName set $setFields where $setWhere";
+
+        $this->ORMquery($quertStr);
+
+        $this->refreshORMConnect();
+
+    }
+
+    public function refreshORMConnect()
+    {
+        $listTMP = array(
+
+            'dbConnect' => $this->fieldList['dbConnect'],
+            'hasConnected' => $this->fieldList['hasConnected'],
+            'dbType' => $this->fieldList['dbType']
+
+        );
+
+        $this->fieldList = $listTMP;
+    }
+
+    public function where($fieldName = '', $fieldValue = '')
+    {
+        $this->whereName = $fieldName;
+        $this->whereValue = $fieldValue;
+    }
+
+    public function DeleteOnSubmit()
+    {
+        $fieldList = $this->fieldList;
+
+        $tableName = $fieldList['tableName'];
+
+        $setWhere = $fieldList['whereName'] . "='" . $fieldList['whereValue'] . "'";
+
+        unset($fieldList['dbConnect'], $fieldList['hasConnected'], $fieldList['tableName'], $fieldList['dbType'], $fieldList['whereName'], $fieldList['whereValue'], $fieldList['error']);
+
+        $quertStr = "delete from $tableName where $setWhere";
+
+        $this->ORMquery($quertStr);
+
+        $this->refreshORMConnect();
+    }
+
+    //  Object-Relational Mapping (ORM)
+
 
     public function connect($dbsortName = 'default')
     {
@@ -50,12 +197,45 @@ class Database
 
     }
 
+    public function ORMquery($queryStr = '', $objectStr = '')
+    {
+//        $this->dbType='mysqli';
+
+        switch ($this->fieldList['dbType']) {
+            case "mysqli":
+
+                $conn = $this->fieldList['dbConnect'];
+
+                $queryDB = $conn->query($queryStr);
+
+                $this->error = $conn->error;
+
+//                $conn->query($queryStr);
+
+                if (is_object($objectStr)) {
+                    $objectStr($queryDB);
+                }
+
+                return $queryDB;
+
+                break;
+
+            case "mysql":
+
+
+                break;
+        }
+
+    }
+
     public function query($queryStr = '', $objectStr = '')
     {
         switch (self::$dbType) {
             case "mysqli":
 
                 $queryDB = self::$dbConnect->query($queryStr);
+
+                $this->error = self::$dbConnect->error;
 
                 if (is_object($objectStr)) {
                     $objectStr($queryDB);
@@ -105,6 +285,25 @@ class Database
                 }
 
                 return $totalRows;
+
+                break;
+
+        }
+
+    }
+
+    public function ORMinsert_id($objectStr = '')
+    {
+        switch ($this->fieldList['dbType']) {
+            case "mysqli":
+
+                $id = $this->fieldList['dbConnect']->insert_id;
+
+                if (is_object($objectStr)) {
+                    $objectStr($id);
+                }
+
+                return $id;
 
                 break;
 
