@@ -185,14 +185,9 @@ class Database
 
         $setWhere = $this->genWhere();
 
-
-
         unset($fieldList['dbConnect'], $fieldList['hasConnected'], $fieldList['tableName'], $fieldList['dbType'], $fieldList['whereName'], $fieldList['whereValue'], $fieldList['error']);
 
         $quertStr = "delete from $tableName where $setWhere";
-
-        echo $quertStr;
-        die();
 
         $this->ORMquery($quertStr);
 
