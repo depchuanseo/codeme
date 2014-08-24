@@ -23,8 +23,9 @@ Route::get('', 'welcome');
 
 Route::get('test-cache', function () {
 
-    Cache::enable(10); //Expires = 10 seconds
+//    Cache::enable(10); //Expires = 10 seconds
 
+    Uri::onlyWord();
     echo 'Content of page';
 
 });

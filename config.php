@@ -27,6 +27,8 @@ define("VIEWS_URL", APP_URL . 'views/');
 
 define("INCLUDES_PATH", ROOT_PATH . 'includes/');
 
+$uri = isset($_GET['load']) ? $_GET['load'] : '';
+
 //Setting database
 
 // Support DbType: mysqli|sqlserver|pdo|mssql
