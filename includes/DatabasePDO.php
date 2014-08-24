@@ -24,6 +24,22 @@ class DatabasePDO
 
     }
 
+    public function query($queryStr = '')
+    {
+
+        $row = self::$dbConnect->query($queryStr);
+
+        return $row;
+
+    }
+
+    public function fetch_assoc($queryStr = '')
+    {
+        $row = self::$dbConnect->query($queryStr);
+
+        return $row;
+    }
+
 
 }
 

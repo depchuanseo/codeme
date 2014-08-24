@@ -72,6 +72,10 @@ class Database
 
                     self::$error = DatabaseSqlserver::$error;
 
+                    self::$dbConnect = $conn;
+
+                    self::$hasConnected = 'yes';
+
                     return $conn;
 
                     break;
@@ -82,15 +86,22 @@ class Database
 
 //                    self::$error = DatabaseMSSQL::$error;
 
+                    self::$dbConnect = $conn;
+
+                    self::$hasConnected = 'yes';
+
                     return $conn;
 
                     break;
 
 
-
                 case "pdo":
 
                     $conn = DatabasePDO::connect();
+
+                    self::$dbConnect = $conn;
+
+                    self::$hasConnected = 'yes';
 
                     return $conn;
 
@@ -152,6 +163,14 @@ class Database
 
                 break;
 
+            case "pdo":
+
+                $query = DatabasePDO::query($queryStr);
+
+                return $query;
+
+                break;
+
             case "mysql":
 
 
@@ -191,6 +210,15 @@ class Database
 
                 break;
 
+            case "pdo":
+
+                $row = DatabasePDO::fetch_assoc($queryDB);
+
+                return $row;
+
+                break;
+
+
         }
 
     }
@@ -220,6 +248,14 @@ class Database
             case "mssql":
 
                 $row = DatabaseMSSQL::fetch_array($queryDB, $objectStr, $fetchType);
+
+                return $row;
+
+                break;
+
+            case "pdo":
+
+                $row = DatabasePDO::fetch_assoc($queryDB);
 
                 return $row;
 

@@ -14,17 +14,17 @@ class File
 
     public function create($filePath = '', $fileData = '', $writeMode = 'w')
     {
-        $fp = fopen($filePath, 'w');
+        $fp = fopen($filePath, $writeMode);
         fwrite($fp, $fileData);
         fclose($fp);
     }
 
-    public function write($filePath = '', $fileData = '')
+    public function writeoverride($filePath = '', $fileData = '')
     {
         self::create($filePath, $fileData);
     }
 
-    public function writeoverride($filePath = '', $fileData = '')
+    public function write($filePath = '', $fileData = '')
     {
         self::create($filePath, $fileData, 'a');
     }
