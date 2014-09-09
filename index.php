@@ -15,14 +15,8 @@ require('codeme_start.php');
 //Connect to database
 //Database::connect('codeme'); //Default db shortname is 'default', you can type your custom db shortname
 
+
 Route::get('', 'welcome');
-
-Route::get('hi', function(){
-
-//    echo 'Hi!';
-
-    Captcha::make();
-});
 
 
 Route::pattern('all', '.*?');

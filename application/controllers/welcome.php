@@ -9,6 +9,7 @@ class welcome
         //Default expires is 1 mins. You can custom that time.
         // 15 seconds cache of this page will be expired.Now we will test it
 
+
         View::make('welcome');
     }
 
