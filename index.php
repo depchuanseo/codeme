@@ -15,20 +15,15 @@ require('codeme_start.php');
 //Connect to database
 //Database::connect('codeme'); //Default db shortname is 'default', you can type your custom db shortname
 
-//Call to 'admincp' controller in page '/admincp'
-//Route::get('admincp','admincp');
-
-
 Route::get('', 'welcome');
 
-Route::get('test-cache', function () {
+Route::get('hi', function(){
 
-//    Cache::enable(10); //Expires = 10 seconds
+//    echo 'Hi!';
 
-    Uri::onlyWord();
-    echo 'Content of page';
-
+    Captcha::make();
 });
+
 
 Route::pattern('all', '.*?');
 Route::get('{all}', function () {

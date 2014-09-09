@@ -11,6 +11,8 @@ class Database
 
     public static $tableName = '';
 
+    public static $dbinfo = array();
+
 //    public static $fieldList = array();
 
     public static $error;
@@ -46,6 +48,8 @@ class Database
         if (self::$hasConnected == 'no') {
 
             if (!is_array($db[$dbsortName])) return false;
+
+            self::$dbinfo = $db[$dbsortName];
 
             self::$dbType = $db[$dbsortName]['dbtype'];
 
@@ -133,6 +137,8 @@ class Database
 
                 $queryDB = self::$dbConnect->query($queryStr);
 
+                echo self::$dbConnect->error;
+
                 self::$error = self::$dbConnect->error;
 
                 if (is_object($objectStr)) {
@@ -179,6 +185,19 @@ class Database
 
     }
 
+    public function exec($queryStr = '')
+    {
+        switch (self::$dbType) {
+            case "pdo":
+
+                $query = DatabasePDO::exec($queryStr);
+
+                break;
+
+        }
+
+    }
+
     public function fetch_assoc($queryDB, $objectStr = '', $fetchType = 'SQLSRV_FETCH_ASSOC')
     {
         switch (self::$dbType) {
@@ -219,6 +238,21 @@ class Database
                 break;
 
 
+        }
+
+    }
+
+    public function fetch_obj($queryDB)
+    {
+        switch (self::$dbType) {
+
+            case "pdo":
+
+                $row = DatabasePDO::fetch_obj($queryDB);
+
+                return $row;
+
+                break;
         }
 
     }
@@ -293,6 +327,15 @@ class Database
                 return $totalRows;
 
                 break;
+
+            case "pdo":
+
+                $totalRows = DatabasePDO::num_rows($queryDB, $objectStr);
+
+                return $totalRows;
+
+                break;
+
         }
 
     }
@@ -326,6 +369,14 @@ class Database
                 return $id;
 
                 break;
+            case "pdo":
+
+                $id = DatabasePDO::insert_id($objectStr);
+
+                return $id;
+
+                break;
+
         }
 
     }
@@ -351,6 +402,40 @@ class Database
                 break;
 
         }
+    }
+
+    public function import($fileName = 'db.sql')
+    {
+
+        if (file_exists($fileName)) {
+
+            Database::query("SET NAMES 'utf8';");
+
+
+            $query = file_get_contents($fileName);
+
+            preg_match_all('/CREATE.*?\;/is', $query, $creates);
+
+            $total = count($creates[0]);
+
+            for ($i = 0; $i < $total; $i++) {
+
+                Database::query($creates[0][$i]);
+            }
+
+            preg_match_all('/INSERT.*?\;/is', $query, $creates);
+
+            $total = count($creates[0]);
+
+            for ($i = 0; $i < $total; $i++) {
+
+                Database::query($creates[0][$i]);
+            }
+
+        }
+
+        return false;
+
     }
 
 

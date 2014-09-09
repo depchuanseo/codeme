@@ -4,6 +4,11 @@
 class Response
 {
 
+    public function rss()
+    {
+        header("Content-Type: application/xml; charset=UTF-8");
+    }
+
     public function json($jsonData = '')
     {
         if (is_array($jsonData)) {
@@ -17,38 +22,19 @@ class Response
     {
         if (file_exists($filePath)) {
 
-            $download_rate = 150.5;
+            $fileName = is_null($fileName) ? basename($fileName) : $fileName;
 
-            if (is_null($fileName)) $fileName = basename($filePath);
-            // send headers
-            header('Cache-control: private');
+            header('Content-Description: File Transfer');
             header('Content-Type: application/octet-stream');
+            header('Content-Disposition: attachment; filename=' . $fileName);
+            header('Content-Transfer-Encoding: binary');
+            header('Expires: 0');
+            header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+            header('Pragma: public');
             header('Content-Length: ' . filesize($filePath));
-            header('Content-Disposition: filename=' . $filePath);
-
-            // flush content
+            ob_clean();
             flush();
-
-            // open file stream
-            $file = fopen($filePath, "r");
-
-            while (!feof($file)) {
-
-                // send the current file part to the browser
-                print fread($file, round($download_rate * 1024));
-
-                // flush the content to the browser
-                flush();
-
-                // sleep one second
-                sleep(1);
-            }
-
-            // close file stream
-            fclose($file);
-
-
-            return true;
+            readfile($file);
 
         }
 
