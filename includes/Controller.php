@@ -3,8 +3,7 @@
 class Controller
 {
     public function load($controlName = '', $funcName = 'index')
-    {
-
+    {  
         $funcOfController = '';
 
         if (preg_match('/(\w+)\@(\w+)/i', $controlName, $matchesName)) {
@@ -17,21 +16,26 @@ class Controller
 
         $path = CONTROLLERS_PATH . $controlName . '.php';
 
+
         if (!file_exists($path)) Alert::make('Controller <b>'.$controlName.'</b> not exists.');
 
         include($path);
 
+        if(preg_match('/.*?\/(\w+)$/i',$controlName,$matches))
+        {
+            $controlName=$matches[1];
+        }
+
         $load = new $controlName();
 
         if (!isset($funcName[0])) $funcName = 'index';
-
-
 
         if (!method_exists($load, $funcName)) Alert::make('Function <b>'.$funcName.'</b> not exists inside controller <b>'.$controlName.'</b> .');
 
         $load->$funcName();
 
     }
+
 
 
 

@@ -24,6 +24,45 @@ class Uri
         }
 
     }
+    public function has($uriName)
+    {
+        if(preg_match('/'.$uriName.'/i', $_GET['load']))
+        {
+            return true;
+        }
+
+        return false;
+    }
+    public function match($uriName)
+    {
+        if(preg_match('/'.$uriName.'/i', $_GET['load'],$matches))
+        {
+            return $matches;
+        }
+
+        return false;
+    }
+    public function matchOnly($uriName)
+    {
+        if(preg_match('/'.$uriName.'/i', $_GET['load'],$matches))
+        {
+            return $matches[1];
+        }
+
+        return false;
+    }
+
+    public function pattern($reGex)
+    {
+        $uri=$_GET['load'];
+
+        if(preg_match($reGex, $uri))
+        {
+            return true;
+        }
+
+        return false;
+    }
 
     public function length()
     {

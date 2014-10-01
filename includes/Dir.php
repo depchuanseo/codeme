@@ -4,10 +4,35 @@ class Dir
 {
     public function create($dirPath = '')
     {
-        mkdir($dirPath);
+        $filterPath=str_replace(ROOT_PATH,'',$dirPath);
+
+        if(preg_match_all('/(\w+)/i',$filterPath,$matches))
+        {
+            $total=count($matches[1]);
+
+            $megerPath=ROOT_PATH;
+
+            for($i=0;$i<$total;$i++)
+            {
+                $megerPath=$megerPath.'/'.$matches[1][$i];
+
+                if(!is_dir($megerPath))
+                {
+                    mkdir($megerPath);     
+                }
+
+ 
+            }
+
+        }
+        else
+        {
+            mkdir($dirPath);
+        }
+  
     }
 
-    public function listFiles($dirPath = '')
+    public function all($dirPath = '')
     {
         if (is_dir($dirPath)) {
             return scandir($dirPath);
@@ -15,6 +40,55 @@ class Dir
 
         return false;
     }
+
+    public function listDir($dirPath = '')
+    {
+        if (is_dir($dirPath)) {
+            $files= scandir($dirPath);
+
+            $total=count($files);
+
+            $dir=array();
+
+            for($i=0;$i<$total;$i++)
+            {
+                if(preg_match('/^\w+$/i', $files[$i]))
+                {
+                    $dir[]= $files[$i];
+                }
+
+            }
+
+            return $dir;
+        }
+
+        return false;        
+    }
+    public function listFiles($dirPath = '')
+    {
+        if (is_dir($dirPath)) {
+            $files= scandir($dirPath);
+
+            $total=count($files);
+
+            $dir=array();
+
+            for($i=0;$i<$total;$i++)
+            {
+                if(preg_match('/^.*?\.\w+$/i', $files[$i]))
+                {
+                    $dir[]= $files[$i];
+                }
+
+            }
+
+            return $dir;
+        }
+
+        return false;        
+    }
+
+
 }
 
 ?>

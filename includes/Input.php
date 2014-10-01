@@ -3,6 +3,7 @@
 
 class Input extends Request
 {
+
     function __construct()
     {
 
@@ -10,7 +11,7 @@ class Input extends Request
 
     public function file($varName = '')
     {
-        $data = $_FILES[$varName];
+        // $data = $_FILES[$varName];
 
         $upload = new Fileupload($varName);
 

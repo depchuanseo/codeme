@@ -7,7 +7,7 @@ class Request
     {
         $result = '';
 
-        if (!preg_match('/(\w+)\.(\d+)/i', $reqName, $matchesName)) {
+        if (!preg_match('/(\w+)\.(\w+)/i', $reqName, $matchesName)) {
             $result = isset($_REQUEST[$reqName]) ? $_REQUEST[$reqName] : $reqValue;
 
         } else {
@@ -23,7 +23,7 @@ class Request
 
     public function has($reqName = '')
     {
-        if (!preg_match('/(\w+)\.(\d+)/i', $reqName, $matchesName)) {
+        if (!preg_match('/(\w+)\.(\w+)/i', $reqName, $matchesName)) {
             if (!isset($_REQUEST[$reqName])) {
                 return false;
             }

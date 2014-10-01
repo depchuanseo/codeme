@@ -1,8 +1,11 @@
 <?php
+ob_start();
+session_start();
+//error_reporting(0);
 
-//Load codeme core
-require('codeme_start.php');
+require('./config.php');
 
+require(ROOT_PATH . 'routes.php');
 
 /* Codeme PHP Framework v1.0 - Write & Develop by [Minh Tien] - Email: safeservicejt@gmail.com
  * You will create & define route here. Route will check then load controller which you create.
@@ -10,19 +13,4 @@ require('codeme_start.php');
  *
  *
  */
-
-
-//Connect to database
-//Database::connect('codeme'); //Default db shortname is 'default', you can type your custom db shortname
-
-
-Route::get('', 'welcome');
-
-
-Route::pattern('all', '.*?');
-Route::get('{all}', function () {
-    View::make('page_not_found');
-});
-
-
 ?>
