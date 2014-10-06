@@ -2,6 +2,7 @@
 
 class Dir
 {
+
     public function create($dirPath = '')
     {
         $filterPath=str_replace(ROOT_PATH,'',$dirPath);
@@ -41,6 +42,15 @@ class Dir
         return false;
     }
 
+    public function listMatch($pattern)
+    {
+        // $listTxt=listMatch("*.txt");
+        
+        $dataMatches=glob($pattern);
+
+        return $dataMatches;
+    }
+
     public function listDir($dirPath = '')
     {
         if (is_dir($dirPath)) {
@@ -52,7 +62,7 @@ class Dir
 
             for($i=0;$i<$total;$i++)
             {
-                if(preg_match('/^\w+$/i', $files[$i]))
+                if(preg_match('/^[a-zA-Z0-9_\s]+$/i', $files[$i]))
                 {
                     $dir[]= $files[$i];
                 }

@@ -77,7 +77,7 @@ class Captcha
 
 //        self::$thisHash=$hash;
 
-        $_SESSION[$hash] = 'OK';
+        $_SESSION["$hash"] = 'OK';
 
 //        End create session
 
@@ -111,7 +111,19 @@ class Captcha
 
             $text = md5($_REQUEST[$inputName]);
 
+            if(!isset($_SESSION[$text]))
+            {
+                return false;
+            }
+
             $verifyStatus = ($_SESSION[$text] == 'OK') ? true : false;
+
+            if($verifyStatus)
+            {
+                $_SESSION[$text]='';
+
+                unset($_SESSION[$text]);
+            }
 
             return $verifyStatus;
         }

@@ -35,6 +35,8 @@ class Uri
     }
     public function match($uriName)
     {
+        if(!isset($_GET['load']))return false;
+
         if(preg_match('/'.$uriName.'/i', $_GET['load'],$matches))
         {
             return $matches;
@@ -44,6 +46,8 @@ class Uri
     }
     public function matchOnly($uriName)
     {
+        if(!isset($_GET['load']))return false;
+
         if(preg_match('/'.$uriName.'/i', $_GET['load'],$matches))
         {
             return $matches[1];
@@ -54,6 +58,8 @@ class Uri
 
     public function pattern($reGex)
     {
+        if(!isset($_GET['load']))return false;
+
         $uri=$_GET['load'];
 
         if(preg_match($reGex, $uri))
