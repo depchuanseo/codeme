@@ -63,7 +63,7 @@ class String
 
     public function randText($len = 10)
     {
-        $str = 'abcdefghijkl0123456789mnopqrstuvwxyzhijklmnopqrs0123456789tuvwxyzABCDEFGHIJKLM0123456789NOPQRSTUVWXYZ01234567ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $str = 'abcdefghjk12345zhjk56789mnpqrzABCDEFGHIJKMNOPQRSTUstuvwxy6789mnpqrstuvwxyzhjk56789mnpqrzABCDEFGHIJKMNOPQRSTUstuvwxyzhjkmrstyz';
 
         $str = substr(str_shuffle($str), 0, $len);
 

@@ -54,6 +54,35 @@ class Cache
 //        }
     }
 
+    // Default timeLive=1 day
+    public function saveKey($keyName,$keyData='')
+    {
+        $filePath=CACHES_PATH.$keyName.'cache';
+
+        $fp=fopen($filePath,'w');
+
+        fwrite($fp,$keyData);
+
+        fclose($fp);
+    }
+
+    public function loadKey($keyName,$timeLive=86400)
+    {
+        $filePath=CACHES_PATH.$keyName.'cache';
+
+        if(!file_exists($filePath))return false;
+
+        $cacheExpires = time() - filemtime($cachePath);
+
+        if ($cacheExpires <= (int)$timeLive) {
+            $cacheData = file_get_contents($cachePath);
+
+            return $cacheData;
+        }
+
+        return false;        
+    }
+
     public function saveCache()
     {
 

@@ -34,7 +34,7 @@ $uri = isset($_GET['load']) ? $_GET['load'] : '';
 // Support DbType: mysqli|sqlserver|pdo|mssql
 
 //Default or you can custom db short name
-$db['codeme'] = array(
+$db['default'] = array(
 
     "dbtype" => "mysqli",
 
@@ -122,14 +122,36 @@ $db['blog_api'] = array(
  *
  *
  */
-function __autoload($className)
-{
-    if (file_exists(INCLUDES_PATH . $className . '.php')) {
-        require_once INCLUDES_PATH . $className . '.php';
-        return true;
+function mainClassess($className) {
+
+    if(file_exists(INCLUDES_PATH . $className . '.php'))
+    {
+        require INCLUDES_PATH . $className . '.php';       
     }
-    return false;
+    
 }
+function extendsClassess($className) {
+    if(file_exists(INCLUDES_PATH .'ac/' . $className . '.php'))
+    {
+        require INCLUDES_PATH .'ac/'. $className . '.php';       
+    }
+   
+}
+
+spl_autoload_register('mainClassess');
+spl_autoload_register('extendsClassess');
+
+// function __autoload($className)
+// {
+//     if (file_exists(INCLUDES_PATH . $className . '.php')) {
+
+//         require INCLUDES_PATH . $className . '.php';     
+
+//         return true;
+//     }
+
+//     return false;
+// }
 
 function load_page_not_found()
 {

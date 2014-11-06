@@ -16,7 +16,7 @@ class Captcha
 
         imagefill($main_img, 0, 0, $bg_color);
 
-        $captcha_str = String::randAlpha(5) . ' ' . String::randAlpha(5);
+        $captcha_str = String::randNumber(5) . ' ' . String::randNumber(5);
 
         $dbColor = array(
             0 => array(100, 161, 39),
@@ -30,18 +30,23 @@ class Captcha
 
         );
         $dbRotator = array(
-            5,
+            45,
             10,
             30,
             -5,
             -10,
-            -30
+            -30,
+            -50
         );
         $dbUpDown = array(
             55,
             40,
             50,
-            45
+            45,
+            35,
+            30,
+            65
+
         );
 
         $font_file = ROOT_PATH . 'uploads/Eirik Raude.ttf';

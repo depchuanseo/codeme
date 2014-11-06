@@ -36,7 +36,18 @@ class Session
     public function make($sessionName = '', $sessionValue = '')
     {
         if (session_id() != null) {
-            $_SESSION[$sessionName] = $sessionValue;
+
+            if (!preg_match('/(\w+)\.(\w+)/i', $sessionName, $matches)) {
+                $_SESSION[$sessionName] = $sessionValue;
+            } else {
+
+                $sessionMain = $matches[1];
+
+                $sessionChild = $matches[2];
+
+                $_SESSION[$sessionMain][$sessionChild]=$sessionValue;
+
+            }
         }
     }
 
