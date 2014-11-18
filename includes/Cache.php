@@ -57,7 +57,7 @@ class Cache
     // Default timeLive=1 day
     public function saveKey($keyName,$keyData='')
     {
-        $filePath=CACHES_PATH.$keyName.'cache';
+        $filePath=CACHES_PATH.$keyName.'.cache';
 
         $fp=fopen($filePath,'w');
 
@@ -68,19 +68,29 @@ class Cache
 
     public function loadKey($keyName,$timeLive=86400)
     {
-        $filePath=CACHES_PATH.$keyName.'cache';
+        $filePath=CACHES_PATH.$keyName.'.cache';
 
         if(!file_exists($filePath))return false;
 
-        $cacheExpires = time() - filemtime($cachePath);
+        $cacheExpires = time() - filemtime($filePath);
 
-        if ($cacheExpires <= (int)$timeLive) {
-            $cacheData = file_get_contents($cachePath);
+        if ((int)$timeLive == -1 || $cacheExpires <= (int)$timeLive) {
+            $cacheData = file_get_contents($filePath);
 
             return $cacheData;
         }
 
         return false;        
+    }
+    public function removeKey($keyName)
+    {
+        $filePath=CACHES_PATH.$keyName.'.cache';
+
+        if(!file_exists($filePath))return true;
+
+        unlink($filePath);
+
+        return true;        
     }
 
     public function saveCache()

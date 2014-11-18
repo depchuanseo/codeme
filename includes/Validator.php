@@ -76,9 +76,6 @@ class Validator
                             case 'upper':
                                 if (!preg_match('/^[A-Z]+$/', $_REQUEST[$keyName])) return false;
                                 break;
-                            case 'wordlower':
-                                if (!preg_match('/^[a-z0-9_\:\.]+$/', $_REQUEST[$keyName])) return false;
-                                break;
 
 
                         }
@@ -160,6 +157,12 @@ class Validator
                                 break;
                             case 'seo':
                                 if (!preg_match('/^[a-zA-Z0-9_\.\_\:\-\_\=\|]+$/i', $keyName)) return false;
+                                break;
+                            case 'lower':
+                                if (!preg_match('/^[a-z]+$/', $keyName)) return false;
+                                break;
+                            case 'upper':
+                                if (!preg_match('/^[A-Z]+$/', $keyName)) return false;
                                 break;
 
 

@@ -198,6 +198,43 @@ class Database
 
     }
 
+    public function fetch_assoc_all($queryDB, $objectStr = '', $fetchType = 'SQLSRV_FETCH_ASSOC')
+    {
+        $totalRows=self::num_rows($query);
+
+        
+
+        $resultData=array();
+
+        while($row=self::fetch_assoc($query))
+        {
+            $resultData[]=$row;
+        }
+
+        if (is_object($objectStr)) {
+            $objectStr($resultData);
+        } 
+
+        return $resultData;
+    }
+    public function fetch_array_all($queryDB, $objectStr = '', $fetchType = 'SQLSRV_FETCH_ASSOC')
+    {
+        $totalRows=self::num_rows($query);
+
+        $resultData=array();
+
+        while($row=self::fetch_array($query))
+        {
+            $resultData[]=$row;
+        }
+
+        if (is_object($objectStr)) {
+            $objectStr($resultData);
+        } 
+
+        return $resultData;
+    }
+
     public function fetch_assoc($queryDB, $objectStr = '', $fetchType = 'SQLSRV_FETCH_ASSOC')
     {
         switch (self::$dbType) {
